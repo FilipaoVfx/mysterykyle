@@ -37,10 +37,10 @@ corazón se va al costado. Sin build, sin dependencias en tiempo de ejecución.
 
 ## Desplegar en Cloudflare Pages
 
-1. **Pon tu dominio** en los metadatos (canonical, Open Graph, sitemap, robots):
+1. **El dominio ya está puesto** (`pastty.com`) en canonical, Open Graph, sitemap y robots. Si algún día cambia:
 
    ```bash
-   node scripts/set-dominio.mjs isa.midominio.com
+   node scripts/set-dominio.mjs pastty.com   # ya aplicado
    git commit -am "Dominio real en los metadatos" && git push
    ```
 
