@@ -1,0 +1,3 @@
+# Una sola URL canónica: todo cuelga de la raíz.
+/index.html  /  301
+/home        /  301

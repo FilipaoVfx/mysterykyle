@@ -5,8 +5,8 @@
   "description": "Composiciones Remotion para la landing ISA TE AMO",
   "scripts": {
     "studio": "remotion studio",
-    "render": "remotion render HeartStorm ../assets/heart-storm.mp4 --codec=h264",
-    "render:webm": "remotion render HeartStorm ../assets/heart-storm.webm --codec=vp8"
+    "render": "remotion render src/index.ts HeartStorm ../public/assets/isa-te-amo.mp4 --codec=h264",
+    "render:square": "remotion render src/index.ts HeartStormSquare ../public/assets/isa-te-amo-cuadrado.mp4 --codec=h264"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.540",

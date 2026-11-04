@@ -6,14 +6,21 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const raiz = join(dirname(fileURLToPath(import.meta.url)), "..");
-const src = readFileSync(join(raiz, "index.html"), "utf8");
+const src = readFileSync(join(raiz, "public", "index.html"), "utf8");
 
 const head = src.slice(src.indexOf("<head>") + 6, src.indexOf("</head>"));
 const body = src.slice(src.indexOf("<body>") + 6, src.lastIndexOf("</body>"));
 
 const headLimpio = head
   .split("\n")
-  .filter((l) => !/<meta charset|name="viewport"/.test(l))
+  // el contenedor de Artifacts ya pone charset/viewport, y las etiquetas
+  // sociales apuntan al dominio de Cloudflare Pages: fuera.
+  .filter(
+    (l) =>
+      !/<meta charset|name="viewport"|property="og:|name="twitter:|rel="canonical"|rel="manifest"|rel="icon"|rel="apple-touch-icon"|apple-mobile-web-app/.test(
+        l
+      )
+  )
   .join("\n")
   .trim();
 
