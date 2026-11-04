@@ -1,0 +1,17 @@
+{
+  "name": "mysterykyle-remotion",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Composiciones Remotion para la landing ISA TE AMO",
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "remotion render HeartStorm ../assets/heart-storm.mp4 --codec=h264",
+    "render:webm": "remotion render HeartStorm ../assets/heart-storm.webm --codec=vp8"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.540",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "remotion": "^4.0.540"
+  }
+}

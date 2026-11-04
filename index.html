@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="ISA TE AMO — ATT PHILIPAO. Una carta de amor animada.">
+<title>Isa te amo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Great+Vibes&family=Jost:wght@300;400;500;600&display=swap">
+<style>
+/* Layout: una sola columna mobile-first — portada a pantalla de corazón,
+   carta nocturna y firma; a partir de 760px el corazón se va al costado. */
+:root{
+  --plum:#2b0c17;        /* noche profunda */
+  --blush:#fde8ee;       /* rosa papel */
+  --blush-2:#f9d2de;     /* rosa raya */
+  --cream:#fff7fa;
+  --candy:#ff4f79;       /* acento vivo */
+  --crimson:#d31a46;     /* rojo rosa */
+  --wine:#8d0f31;        /* sombra de pétalo */
+  --ink:#4a1224;         /* texto sobre rosa */
+  --ink-soft:#8a4c5f;
+  --font-display:"Archivo Black","Haettenschweiler","Arial Black",sans-serif;
+  --font-script:"Great Vibes","Snell Roundhand",cursive;
+  --font-body:"Jost","Futura","Avenir Next",system-ui,sans-serif;
+  color-scheme: light;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--blush);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-weight:300;
+  font-size:16px;
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%}
+
+/* ---------- fondo: rayas verticales + brillo que respira ---------- */
+.stripes{
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(255,255,255,.85) 0%, rgba(255,255,255,0) 60%),
+    repeating-linear-gradient(90deg, var(--blush) 0 14px, var(--blush-2) 14px 28px);
+  opacity:.95;
+}
+.glow{
+  position:fixed; inset:-20%; z-index:0; pointer-events:none;
+  background:radial-gradient(40% 30% at 50% 35%, rgba(255,120,160,.35), rgba(255,120,160,0) 70%);
+  animation:breathe 7s ease-in-out infinite;
+}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:.6}50%{transform:scale(1.12);opacity:1}}
+#field{position:fixed; inset:0; z-index:1; pointer-events:none}
+
+/* ---------- estructura ---------- */
+.page{position:relative; z-index:2}
+.wrap{
+  width:100%; max-width:1120px; margin-inline:auto;
+  padding-left:max(18px, env(safe-area-inset-left, 0px));
+  padding-right:max(18px, env(safe-area-inset-right, 0px));
+}
+
+/* ---------- barra superior ---------- */
+.topbar{
+  position:sticky; top:env(safe-area-inset-top, 0px); z-index:30;
+  backdrop-filter:blur(10px);
+  background:linear-gradient(180deg, rgba(253,232,238,.92), rgba(253,232,238,.55));
+  border-bottom:1px solid rgba(211,26,70,.14);
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:31;background:var(--blush)}
+.topbar .wrap{display:flex; align-items:center; justify-content:space-between; gap:12px; padding-block:10px}
+.brand{display:flex; align-items:center; gap:9px; text-decoration:none; color:inherit}
+.brand svg{width:26px; height:26px; flex:none; filter:drop-shadow(0 2px 6px rgba(211,26,70,.35))}
+.brand b{font-family:var(--font-body); font-weight:600; font-size:11px; letter-spacing:.22em; text-transform:uppercase; line-height:1.2}
+.brand span{display:block; font-weight:300; font-size:9px; letter-spacing:.3em; color:var(--ink-soft)}
+.nav{display:none; gap:26px}
+.nav a{
+  font-size:11px; letter-spacing:.2em; text-transform:uppercase; font-weight:500;
+  color:var(--ink); text-decoration:none; padding:6px 0; position:relative;
+}
+.nav a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;background:var(--candy);transition:right .35s cubic-bezier(.2,.8,.2,1)}
+.nav a:hover::after,.nav a:focus-visible::after{right:0}
+
+/* ---------- portada ---------- */
+.hero{padding-block:30px 46px}
+.hero-grid{display:grid; gap:26px}
+.eyebrow{
+  display:inline-flex; align-items:center; gap:9px;
+  font-size:10px; letter-spacing:.34em; text-transform:uppercase; font-weight:500;
+  color:var(--crimson); margin:0 0 14px;
+}
+.eyebrow::before{content:"";width:30px;height:1px;background:var(--crimson);opacity:.6}
+
+h1{margin:0; line-height:.9}
+.name{
+  display:block; font-family:var(--font-script); font-weight:400;
+  font-size:clamp(76px, 30vw, 190px); line-height:.78;
+  color:var(--crimson);
+  text-shadow:0 1px 0 #fff, 0 14px 34px rgba(211,26,70,.28);
+}
+.shout{
+  display:block; font-family:var(--font-display);
+  font-size:clamp(40px, 15.5vw, 104px); line-height:.94;
+  letter-spacing:-.015em; color:var(--ink);
+  text-wrap:balance; margin-top:4px;
+}
+.shout em{font-style:normal; color:var(--candy)}
+.letters span{display:inline-block; will-change:transform,opacity}
+
+.lede{max-width:34ch; margin:18px 0 0; color:var(--ink-soft); font-size:15px}
+.meta{
+  display:flex; flex-wrap:wrap; align-items:center; gap:10px 16px;
+  margin-top:20px; font-size:12px; letter-spacing:.18em; text-transform:uppercase; font-weight:500; color:var(--crimson);
+}
+.meta .dot{width:5px;height:5px;border-radius:50%;background:var(--candy)}
+
+.cta-row{display:flex; flex-wrap:wrap; gap:12px; margin-top:26px}
+.btn{
+  appearance:none; border:0; cursor:pointer; font-family:var(--font-body);
+  font-size:12px; font-weight:600; letter-spacing:.2em; text-transform:uppercase;
+  padding:15px 26px; border-radius:2px; color:#fff;
+  background:linear-gradient(180deg, var(--candy), var(--crimson));
+  box-shadow:0 10px 26px rgba(211,26,70,.38), inset 0 1px 0 rgba(255,255,255,.45);
+  transition:transform .18s cubic-bezier(.2,.8,.2,1), box-shadow .18s;
+}
+.btn:hover{transform:translateY(-2px); box-shadow:0 16px 34px rgba(211,26,70,.46), inset 0 1px 0 rgba(255,255,255,.5)}
+.btn:active{transform:translateY(1px) scale(.985)}
+.btn.ghost{
+  background:transparent; color:var(--crimson);
+  border:1px solid rgba(211,26,70,.4); box-shadow:none;
+}
+.btn.ghost:hover{background:rgba(211,26,70,.07); box-shadow:none}
+:focus-visible{outline:2px solid var(--candy); outline-offset:3px}
+
+/* ---------- escenario del corazón ---------- */
+.stage{position:relative; width:100%; aspect-ratio:1/1; max-width:min(100%, 520px); margin-inline:auto; max-height:70vh}
+.stage svg{position:absolute; inset:0; width:100%; height:100%; overflow:visible}
+.beat{transform-origin:50% 55%; animation:beat 2.4s cubic-bezier(.22,.68,.3,1) infinite}
+@keyframes beat{
+  0%,100%{transform:scale(1)}
+  10%{transform:scale(1.055)}
+  18%{transform:scale(.995)}
+  28%{transform:scale(1.035)}
+  42%{transform:scale(1)}
+}
+.float{animation:float 6s ease-in-out infinite}
+.float-2{animation:float 7.5s ease-in-out .8s infinite}
+.float-3{animation:float 5.4s ease-in-out .4s infinite}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-10px) rotate(3deg)}}
+.stage.pulse .beat{animation:burst .7s cubic-bezier(.2,.9,.25,1)}
+@keyframes burst{0%{transform:scale(1)}35%{transform:scale(1.18)}100%{transform:scale(1)}}
+
+/* ---------- secreto ---------- */
+.secret{
+  margin-top:24px; border:1px solid rgba(211,26,70,.28); border-radius:3px;
+  background:linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.55));
+  padding:22px 20px; max-width:38ch;
+  box-shadow:0 18px 40px rgba(141,15,49,.14);
+}
+.secret p{margin:0; font-family:var(--font-script); font-size:30px; line-height:1.25; color:var(--crimson)}
+.secret small{display:block; margin-top:10px; font-size:10px; letter-spacing:.3em; text-transform:uppercase; color:var(--ink-soft)}
+
+/* ---------- carta nocturna ---------- */
+.night{
+  position:relative; margin-top:40px; color:#ffdfe8;
+  background:
+    radial-gradient(90% 60% at 50% 0%, rgba(255,79,121,.3), rgba(255,79,121,0) 70%),
+    linear-gradient(180deg, #3a1020, var(--plum) 45%, #1d0710);
+}
+.night .wrap{padding-block:54px}
+.night h2{
+  margin:0 0 6px; font-family:var(--font-display); font-size:clamp(26px,8vw,52px);
+  line-height:1.02; color:#fff; text-wrap:balance;
+}
+.night h2 em{font-style:normal; font-family:var(--font-script); font-weight:400; color:var(--candy); font-size:1.35em}
+.night .kicker{font-size:10px; letter-spacing:.34em; text-transform:uppercase; color:#ff96b0; margin:0 0 16px}
+.letter{
+  max-width:60ch; font-size:16px; line-height:1.85; color:#f6cdd9; font-weight:300;
+}
+.letter p{margin:0 0 16px}
+.letter strong{color:#fff; font-weight:500}
+.signature{
+  display:flex; flex-direction:column; gap:4px; margin-top:26px;
+  padding-top:20px; border-top:1px solid rgba(255,150,176,.28);
+}
+.signature .att{font-size:10px; letter-spacing:.34em; text-transform:uppercase; color:#ff96b0}
+.signature .who{font-family:var(--font-script); font-size:clamp(44px,14vw,76px); line-height:.95; color:#fff}
+
+/* ---------- promesas ---------- */
+.vows{display:grid; gap:1px; margin-top:34px; background:rgba(255,150,176,.22); border:1px solid rgba(255,150,176,.22)}
+.vow{background:rgba(27,8,15,.86); padding:20px 18px}
+.vow h3{margin:0 0 6px; font-size:12px; letter-spacing:.24em; text-transform:uppercase; font-weight:600; color:#fff}
+.vow p{margin:0; font-size:14px; color:#e8b7c6; line-height:1.65}
+.vow .num{display:block; font-family:var(--font-script); font-size:34px; color:var(--candy); line-height:1; margin-bottom:8px}
+
+/* ---------- cierre ---------- */
+.closing{padding-block:56px 70px; text-align:center}
+.closing .big{
+  font-family:var(--font-display); font-size:clamp(30px,10.5vw,78px); line-height:1;
+  color:var(--ink); margin:0; text-wrap:balance;
+}
+.closing .big em{font-style:normal;color:var(--candy)}
+.closing .sub{font-family:var(--font-script); font-size:clamp(34px,11vw,62px); color:var(--crimson); margin:6px 0 0; line-height:1}
+.closing .fine{margin-top:22px; font-size:10px; letter-spacing:.32em; text-transform:uppercase; color:var(--ink-soft)}
+.rule{height:1px;background:linear-gradient(90deg,transparent,rgba(211,26,70,.45),transparent);margin:28px 0}
+
+/* ---------- escala a pantallas grandes ---------- */
+@media (min-width:760px){
+  body{font-size:17px}
+  .nav{display:flex}
+  .hero{padding-block:52px 80px}
+  .hero-grid{grid-template-columns:1.05fr .95fr; align-items:center; gap:40px}
+  .hero-copy{min-width:0}
+  .stage{max-width:none; max-height:none}
+  .night .wrap{padding-block:88px}
+  .vows{grid-template-columns:repeat(3,1fr)}
+  .vow{padding:26px 24px}
+  .letter{font-size:18px}
+}
+@media (min-width:1100px){
+  .hero{padding-block:70px 110px}
+  .hero-grid{gap:60px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important; transition:none!important}
+  #field{display:none}
+}
+</style>
+</head>
+<body>
+<div class="stripes" aria-hidden="true"></div>
+<div class="glow" aria-hidden="true"></div>
+<canvas id="field" aria-hidden="true"></canvas>
+
+<!-- piezas reutilizables: corazón 3D y rosas -->
+<svg width="0" height="0" aria-hidden="true" style="position:absolute">
+  <defs>
+    <radialGradient id="gHeart" cx="34%" cy="26%" r="78%">
+      <stop offset="0%" stop-color="#ffd3e0"/>
+      <stop offset="28%" stop-color="#ff87a8"/>
+      <stop offset="62%" stop-color="#f1436f"/>
+      <stop offset="100%" stop-color="#a30f38"/>
+    </radialGradient>
+    <radialGradient id="gGloss" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff" stop-opacity=".95"/>
+      <stop offset="70%" stop-color="#fff" stop-opacity=".12"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="gShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#8d0f31" stop-opacity=".40"/>
+      <stop offset="100%" stop-color="#8d0f31" stop-opacity="0"/>
+    </radialGradient>
+    <path id="petal" d="M50 52 C30 50 21 35 30 21 C38 8 62 8 70 21 C79 35 70 50 50 52 Z"/>
+    <symbol id="rose" viewBox="0 0 100 100">
+      <g fill="currentColor">
+        <use href="#petal"/><use href="#petal" transform="rotate(72 50 50)"/>
+        <use href="#petal" transform="rotate(144 50 50)"/><use href="#petal" transform="rotate(216 50 50)"/>
+        <use href="#petal" transform="rotate(288 50 50)"/>
+      </g>
+      <g fill="#5e0a20" opacity=".16" transform="translate(50 50) scale(.68) translate(-50 -50)">
+        <use href="#petal" transform="rotate(36 50 50)"/><use href="#petal" transform="rotate(108 50 50)"/>
+        <use href="#petal" transform="rotate(180 50 50)"/><use href="#petal" transform="rotate(252 50 50)"/>
+        <use href="#petal" transform="rotate(324 50 50)"/>
+      </g>
+      <g fill="currentColor" transform="translate(50 50) scale(.42) translate(-50 -50)">
+        <use href="#petal"/><use href="#petal" transform="rotate(90 50 50)"/>
+        <use href="#petal" transform="rotate(180 50 50)"/><use href="#petal" transform="rotate(270 50 50)"/>
+      </g>
+      <circle cx="50" cy="50" r="7" fill="#5e0a20" opacity=".28"/>
+      <circle cx="47" cy="47" r="3.4" fill="#fff" opacity=".35"/>
+    </symbol>
+    <symbol id="heart3d" viewBox="0 0 100 92">
+      <ellipse cx="50" cy="88" rx="30" ry="7" fill="url(#gShadow)"/>
+      <path d="M50 88 C20 66 4 47 4 30 C4 14 17 4 31 4 C40 4 47 9 50 16 C53 9 60 4 69 4 C83 4 96 14 96 30 C96 47 80 66 50 88 Z" fill="url(#gHeart)"/>
+      <ellipse cx="33" cy="24" rx="15" ry="11" fill="url(#gGloss)" transform="rotate(-24 33 24)"/>
+      <ellipse cx="69" cy="20" rx="7" ry="4.6" fill="#fff" opacity=".45" transform="rotate(-18 69 20)"/>
+      <path d="M50 88 C20 66 4 47 4 30" fill="none" stroke="#ffd9e4" stroke-opacity=".35" stroke-width="2.2" stroke-linecap="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#inicio">
+      <svg viewBox="0 0 100 92" aria-hidden="true"><use href="#heart3d"/></svg>
+      <b>Para Isa<span>De Philipao</span></b>
+    </a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="#inicio">Inicio</a>
+      <a href="#carta">La carta</a>
+      <a href="#promesas">Promesas</a>
+      <a href="#siempre">Siempre</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+<main>
+  <section class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Una carta que late</p>
+        <h1>
+          <span class="name letters" data-anim="name">Isa</span>
+          <span class="shout letters" data-anim="shout">te <em>amo</em></span>
+        </h1>
+        <p class="lede">Lo escribo en grande porque decirlo bajito nunca me alcanzó. Esto es tuyo: el corazón, las rosas y todo lo que sigue.</p>
+        <div class="meta">
+          <span>Hoy</span><span class="dot" aria-hidden="true"></span>
+          <span>Mañana</span><span class="dot" aria-hidden="true"></span>
+          <span>Y el resto</span>
+        </div>
+        <div class="cta-row">
+          <button class="btn" id="boom" type="button">Tócame el corazón</button>
+          <a class="btn ghost" href="#carta">Leer la carta</a>
+        </div>
+        <div class="secret" id="secret" hidden>
+          <p>Isa, te amo.</p>
+          <small>Att — Philipao</small>
+        </div>
+      </div>
+
+      <div class="stage" id="stage">
+        <svg viewBox="0 0 400 400" role="img" aria-label="Un corazón rosa rodeado de rosas">
+          <g class="beat"><use href="#heart3d" x="92" y="96" width="230" height="212"/></g>
+          <g class="float"><use href="#rose" x="36" y="120" width="78" height="78" color="#d31a46"/></g>
+          <g class="float-2"><use href="#rose" x="296" y="78" width="66" height="66" color="#a30f38"/></g>
+          <g class="float-3"><use href="#rose" x="286" y="238" width="86" height="86" color="#fff1f4"/></g>
+          <g class="float-2"><use href="#rose" x="118" y="296" width="60" height="60" color="#ff4f79"/></g>
+          <g class="float"><use href="#rose" x="222" y="314" width="52" height="52" color="#fde8ee"/></g>
+          <g class="float-3"><use href="#rose" x="36" y="246" width="46" height="46" color="#8d0f31"/></g>
+          <g class="float-2"><use href="#heart3d" x="318" y="166" width="40" height="37"/></g>
+          <g class="float"><use href="#heart3d" x="60" y="60" width="30" height="28"/></g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="night" id="carta">
+    <div class="wrap">
+      <p class="kicker">Lo que no cabe en un mensaje</p>
+      <h2>No es una fecha.<br>Eres <em>tú</em>.</h2>
+      <div class="letter">
+        <p>Isa: hay cosas que uno repite hasta que dejan de sonar a palabra y empiezan a sonar a casa. <strong>Te amo</strong> es la mía.</p>
+        <p>Te amo cuando todo sale bien y cuando no sale nada. En los días largos, en los silencios cómodos, en las risas que no se explican a nadie más. Te amo con el ruido y con la calma.</p>
+        <p>Y si algún día dudas, vuelve aquí: esta página va a seguir latiendo con lo mismo que te digo de frente.</p>
+      </div>
+      <div class="signature">
+        <span class="att">Att</span>
+        <span class="who">Philipao</span>
+      </div>
+
+      <div class="vows" id="promesas">
+        <div class="vow"><span class="num">i</span><h3>Quedarme</h3><p>No en los días fáciles. En todos.</p></div>
+        <div class="vow"><span class="num">ii</span><h3>Escucharte</h3><p>Hasta el final de la frase, sin apuro.</p></div>
+        <div class="vow"><span class="num">iii</span><h3>Decírtelo</h3><p>En voz alta, siempre que haga falta.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing" id="siempre">
+    <div class="wrap">
+      <p class="big">ISA <em>TE AMO</em></p>
+      <p class="sub">att Philipao</p>
+      <div class="rule"></div>
+      <p class="fine">Hecho a mano, con un corazón que no se calla</p>
+    </div>
+  </section>
+</main>
+</div>
+
+<script>
+(() => {
+  "use strict";
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---- helpers con la semántica de Remotion (interpolate / spring) ---- */
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  function interpolate(frame, input, output, opts = {}) {
+    const [i0, i1] = input, [o0, o1] = output;
+    let p = (frame - i0) / (i1 - i0);
+    if (opts.extrapolateLeft !== "extend") p = Math.max(0, p);
+    if (opts.extrapolateRight !== "extend") p = Math.min(1, p);
+    const e = opts.easing ? opts.easing(clamp(p, 0, 1)) : p;
+    return o0 + (o1 - o0) * e;
+  }
+  const Easing = {
+    out: t => 1 - Math.pow(1 - t, 3),
+    inOut: t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
+  };
+  // spring físico, mismo modelo que remotion: damping / stiffness / mass
+  function spring({ frame, fps = 60, config = {}, delay = 0 }) {
+    const { damping = 10, stiffness = 100, mass = 1 } = config;
+    const t = Math.max(0, (frame - delay)) / fps;
+    const w0 = Math.sqrt(stiffness / mass);
+    const zeta = damping / (2 * Math.sqrt(stiffness * mass));
+    if (zeta < 1) {
+      const wd = w0 * Math.sqrt(1 - zeta * zeta);
+      return 1 - Math.exp(-zeta * w0 * t) * (Math.cos(wd * t) + (zeta * w0 / wd) * Math.sin(wd * t));
+    }
+    return 1 - (1 + w0 * t) * Math.exp(-w0 * t);
+  }
+
+  /* ---- entrada del título, letra por letra, con spring ---- */
+  document.querySelectorAll(".letters").forEach(el => {
+    const text = el.textContent;
+    const html = el.innerHTML;
+    const hasEm = html.includes("<em>");
+    el.innerHTML = "";
+    const pieces = hasEm
+      ? [...el.ownerDocument.createRange().createContextualFragment(html).childNodes]
+      : [document.createTextNode(text)];
+    const spans = [];
+    pieces.forEach(node => {
+      const target = node.nodeType === 1 ? node.cloneNode(false) : null;
+      const str = node.textContent;
+      const host = target || el;
+      [...str].forEach(ch => {
+        const s = document.createElement("span");
+        s.textContent = ch === " " ? " " : ch;
+        host.appendChild(s);
+        spans.push(s);
+      });
+      if (target) el.appendChild(target);
+    });
+    if (reduce) return;
+    spans.forEach((s, i) => {
+      s.style.opacity = "0";
+      s.dataset.delay = String(i * 2.5);
+    });
+    el._spans = spans;
+  });
+
+  if (!reduce) {
+    let f = 0;
+    const all = [...document.querySelectorAll(".letters")].flatMap(e => e._spans || []);
+    (function tick() {
+      f++;
+      let done = true;
+      all.forEach(s => {
+        const d = Number(s.dataset.delay);
+        const p = spring({ frame: f, delay: d, config: { damping: 12, stiffness: 120, mass: .9 } });
+        if (p < .999) done = false;
+        s.style.opacity = String(clamp(p * 1.4, 0, 1));
+        s.style.transform = `translateY(${(1 - p) * 42}px) rotate(${(1 - p) * -7}deg) scale(${.78 + p * .22})`;
+      });
+      if (!done) requestAnimationFrame(tick);
+      else all.forEach(s => { s.style.transform = ""; s.style.opacity = "1"; });
+    })();
+  }
+
+  /* ---- lluvia de corazones en canvas ---- */
+  const cv = document.getElementById("field");
+  const ctx = cv.getContext("2d");
+  let W = 0, H = 0, dpr = 1, hearts = [], frame = 0;
+
+  function heartPath(c, x, y, s, rot) {
+    c.save(); c.translate(x, y); c.rotate(rot); c.scale(s, s);
+    c.beginPath();
+    c.moveTo(0, .42);
+    c.bezierCurveTo(-.62, -.05, -.98, -.42, -.98, -.72);
+    c.bezierCurveTo(-.98, -1.05, -.62, -1.25, -.33, -1.25);
+    c.bezierCurveTo(-.13, -1.25, 0, -1.12, 0, -.98);
+    c.bezierCurveTo(0, -1.12, .13, -1.25, .33, -1.25);
+    c.bezierCurveTo(.62, -1.25, .98, -1.05, .98, -.72);
+    c.bezierCurveTo(.98, -.42, .62, -.05, 0, .42);
+    c.closePath();
+  }
+
+  const PALETTE = ["#ff4f79", "#d31a46", "#ff87a8", "#8d0f31", "#ffc2d2"];
+  function make(x, y, burst) {
+    const size = (burst ? 7 + Math.random() * 16 : 6 + Math.random() * 22);
+    return {
+      x: x ?? Math.random() * W,
+      y: y ?? H + Math.random() * H * .4,
+      s: size,
+      vx: (Math.random() - .5) * (burst ? 7 : 1.1),
+      vy: burst ? -(2.5 + Math.random() * 7) : -(.35 + Math.random() * .9),
+      rot: (Math.random() - .5) * 1.2,
+      vr: (Math.random() - .5) * .035,
+      born: frame,
+      life: burst ? 70 + Math.random() * 60 : 0,
+      color: PALETTE[(Math.random() * PALETTE.length) | 0],
+      alpha: burst ? .95 : .18 + Math.random() * .45,
+      sway: Math.random() * Math.PI * 2,
+      burst
+    };
+  }
+
+  function resize() {
+    dpr = Math.min(2, devicePixelRatio || 1);
+    W = innerWidth; H = innerHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+    cv.style.width = W + "px"; cv.style.height = H + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const want = clamp(Math.round(W / 26), 14, 46);
+    hearts = hearts.filter(h => h.burst);
+    for (let i = 0; i < want; i++) {
+      const h = make(Math.random() * W, Math.random() * H, false);
+      hearts.push(h);
+    }
+  }
+
+  function draw() {
+    frame++;
+    ctx.clearRect(0, 0, W, H);
+    for (let i = hearts.length - 1; i >= 0; i--) {
+      const h = hearts[i];
+      const age = frame - h.born;
+      if (h.burst) {
+        h.vy += .13;
+        h.vx *= .99;
+      } else {
+        h.sway += .012;
+        h.x += Math.sin(h.sway) * .35;
+      }
+      h.x += h.vx; h.y += h.vy; h.rot += h.vr;
+
+      let a = h.alpha;
+      if (h.burst) {
+        const pop = spring({ frame: age, config: { damping: 9, stiffness: 160, mass: .7 } });
+        a = h.alpha * interpolate(age, [h.life * .55, h.life], [1, 0]);
+        ctx.globalAlpha = clamp(a, 0, 1);
+        heartPath(ctx, h.x, h.y, h.s * (.3 + pop * .7), h.rot);
+      } else {
+        ctx.globalAlpha = a;
+        heartPath(ctx, h.x, h.y, h.s, h.rot);
+      }
+      const g = ctx.createLinearGradient(h.x - h.s, h.y - h.s, h.x + h.s, h.y + h.s);
+      g.addColorStop(0, "#ffd3e0"); g.addColorStop(.45, h.color); g.addColorStop(1, "#8d0f31");
+      ctx.fillStyle = g;
+      ctx.fill();
+      ctx.restore();
+
+      if (h.y < -80 && !h.burst) { h.y = H + 40; h.x = Math.random() * W; }
+      if (h.burst && (age > h.life || h.y > H + 120)) hearts.splice(i, 1);
+    }
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(draw);
+  }
+
+  if (!reduce) {
+    addEventListener("resize", resize, { passive: true });
+    resize();
+    requestAnimationFrame(draw);
+  }
+
+  function burstAt(x, y, n) {
+    if (reduce) return;
+    for (let i = 0; i < n; i++) hearts.push(make(x, y, true));
+  }
+
+  /* ---- interacción ---- */
+  const btn = document.getElementById("boom");
+  const stage = document.getElementById("stage");
+  const secret = document.getElementById("secret");
+  btn.addEventListener("click", e => {
+    const r = btn.getBoundingClientRect();
+    burstAt(r.left + r.width / 2, r.top + r.height / 2, 46);
+    const sr = stage.getBoundingClientRect();
+    burstAt(sr.left + sr.width / 2, sr.top + sr.height / 2, 34);
+    stage.classList.remove("pulse"); void stage.offsetWidth; stage.classList.add("pulse");
+    secret.hidden = false;
+    btn.textContent = "Otra vez";
+  });
+  stage.addEventListener("click", e => burstAt(e.clientX, e.clientY, 22));
+
+  // estela: corazoncitos al mover el dedo o el mouse
+  let last = 0;
+  const trail = e => {
+    const now = performance.now();
+    if (now - last < 70) return;
+    last = now;
+    const p = e.touches ? e.touches[0] : e;
+    if (!p) return;
+    const h = make(p.clientX, p.clientY, true);
+    h.vy = -(.6 + Math.random() * 1.4); h.vx = (Math.random() - .5) * 1.6;
+    h.s = 5 + Math.random() * 7; h.life = 48;
+    hearts.push(h);
+  };
+  if (!reduce) {
+    addEventListener("pointermove", trail, { passive: true });
+    addEventListener("touchmove", trail, { passive: true });
+  }
+
+  // revelado al entrar en pantalla, desde un estado ya visible
+  const io = new IntersectionObserver(es => es.forEach(en => {
+    if (!en.isIntersecting || reduce) return;
+    en.target.animate(
+      [{ opacity: .35, transform: "translateY(18px)" }, { opacity: 1, transform: "none" }],
+      { duration: 700, easing: "cubic-bezier(.2,.8,.2,1)", fill: "both" }
+    );
+    io.unobserve(en.target);
+  }), { threshold: .25 });
+  document.querySelectorAll(".vow, .letter p, .signature").forEach(el => io.observe(el));
+})();
+</script>
+</body>
+</html>
