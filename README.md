@@ -1,40 +1,72 @@
 # mysterykyle
 
-Landing page de **Valentine's Day Party** para Crystal Events, construida a partir
-del mockup de referencia en `reference/landing-valentines.jpg`.
+**ISA TE AMO — ATT PHILIPAO.**
+Una carta de amor hecha landing page: corazón 3D, rosas, lluvia de corazones
+y una animación renderizada con [Remotion](https://remotion.dev).
 
-## El diseño
+Mobile-first: la página se diseña a 390px y recién a partir de 760px el
+corazón se va al costado.
 
-| Elemento | Detalle |
-| --- | --- |
-| Marca | Crystal Events (logo con corazón, arriba a la izquierda) |
-| Navegación | Home · Events · About · Contact us |
-| Título | VALENTINE'S DAY *Party* |
-| Subtítulo | You are invited to our annual Valentine's party |
-| Fecha | February 14th · 9 PM |
-| CTA | Book now |
-| Line-up | DJ Love · DJ Hardwall · DJ Snake |
-| Pie | Copyright © Crystal Events · redes sociales |
-| Paleta | rosas degradados (#f8d7dd → #fdeef1), rojo acento (#e8294a), fondo a rayas verticales |
-| Arte | corazón 3D rosa rodeado de rosas rojas y blancas |
-
-## Estructura
+## Qué hay dentro
 
 ```
 .
-├── README.md
-└── reference/
-    └── landing-valentines.jpg   # mockup de referencia
+├── index.html                  # la landing completa (un solo archivo, sin build)
+├── assets/
+│   ├── isa-te-amo.mp4          # animación vertical 1080x1920 (Remotion)
+│   └── isa-te-amo-cuadrado.mp4 # misma animación 1080x1080
+├── remotion/                   # proyecto Remotion
+│   └── src/
+│       ├── Root.tsx            # composiciones HeartStorm y HeartStormSquare
+│       ├── HeartStorm.tsx      # la tormenta de corazones
+│       ├── Heart.tsx           # corazón 3D y rosa en SVG
+│       └── fonts.ts            # espera a las tipografías antes del primer frame
+├── reference/
+│   └── landing-valentines.jpg  # mockup del que sale la estética
+└── scripts/build-artifact.mjs  # genera el fragmento para publicar la página
 ```
 
-## Estado
+## La estética
 
-Repositorio recién inicializado: por ahora solo el README y la referencia visual.
-Siguiente paso: implementar la landing (HTML/CSS responsive).
+Sale del mockup en `reference/`: rayas verticales rosas, corazón 3D brillante,
+rosas rojas y blancas, y un rojo acento para todo lo que grita.
 
-## Desarrollo
+| Token | Valor | Para qué |
+| --- | --- | --- |
+| `--blush` / `--blush-2` | `#fde8ee` / `#f9d2de` | las rayas del fondo |
+| `--candy` | `#ff4f79` | acento, el "amo" |
+| `--crimson` | `#d31a46` | el nombre, los botones |
+| `--wine` | `#8d0f31` | sombra de pétalo |
+| `--plum` | `#2b0c17` | la carta nocturna |
+
+Tipografías: **Great Vibes** para el nombre, **Archivo Black** para los gritos,
+**Jost** para leer.
+
+## La animación
+
+El título entra letra por letra con un `spring()` físico (damping / stiffness /
+mass, el mismo modelo que usa Remotion) implementado en el propio `index.html`,
+así la página no depende de ningún bundle. Las mismas funciones gobiernan la
+lluvia de corazones en canvas: cada corazón se dibuja con bézier y gradiente,
+flota, y al tocar el botón estallan 80 de golpe.
+
+Toda la página respeta `prefers-reduced-motion`.
+
+### Renderizar el video
 
 ```bash
-git clone https://github.com/FilipaoVfx/mysterykyle.git
-cd mysterykyle
+cd remotion
+npm install
+npm run studio    # previsualizar en el navegador
+npm run render    # -> ../assets/isa-te-amo.mp4
 ```
+
+## Ver la página
+
+Abrirla directo funciona, no hay build:
+
+```bash
+python3 -m http.server 8000   # luego http://localhost:8000
+```
+
+Para publicarla en GitHub Pages: Settings → Pages → Deploy from branch → `main` / `root`.

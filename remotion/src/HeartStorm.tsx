@@ -95,12 +95,12 @@ export const HeartStorm: React.FC<Props> = ({ nombre, firma }) => {
 
       {/* rosas alrededor del centro */}
       {[
-        { a: -150, d: 0.33, s: 0.15, c: "#d31a46" },
-        { a: -40, d: 0.36, s: 0.13, c: "#a30f38" },
-        { a: 35, d: 0.3, s: 0.17, c: "#fff1f4" },
-        { a: 125, d: 0.34, s: 0.12, c: "#ff4f79" },
-        { a: 180, d: 0.29, s: 0.1, c: "#fde8ee" },
-        { a: 80, d: 0.4, s: 0.09, c: "#8d0f31" },
+        { a: -150, d: 0.32, s: 0.21, c: "#d31a46" },
+        { a: -40, d: 0.34, s: 0.185, c: "#a30f38" },
+        { a: 35, d: 0.29, s: 0.235, c: "#fff1f4" },
+        { a: 125, d: 0.33, s: 0.17, c: "#ff4f79" },
+        { a: 180, d: 0.28, s: 0.145, c: "#fde8ee" },
+        { a: 80, d: 0.4, s: 0.13, c: "#8d0f31" },
       ].map((r, i) => {
         const pop = spring({
           frame,

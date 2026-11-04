@@ -53,11 +53,21 @@ export const RoseSVG: React.FC<{ size: number; color: string }> = ({
         <path key={r} d={PETAL} transform={`rotate(${r} 50 50)`} />
       ))}
     </g>
-    <g fill={color} transform="translate(50 50) scale(.42) translate(-50 -50)">
+    <g fill={color} transform="translate(50 50) rotate(22) scale(.44) translate(-50 -50)">
       {[0, 90, 180, 270].map((r) => (
         <path key={r} d={PETAL} transform={`rotate(${r} 50 50)`} />
       ))}
     </g>
-    <circle cx="50" cy="50" r="7" fill="#5e0a20" opacity=".28" />
+    <g fill="#5e0a20" opacity=".10" transform="translate(50 50) rotate(50) scale(.26) translate(-50 -50)">
+      {[0, 120, 240].map((r) => (
+        <path key={r} d={PETAL} transform={`rotate(${r} 50 50)`} />
+      ))}
+    </g>
+    <g fill={color} transform="translate(50 50) rotate(-14) scale(.2) translate(-50 -50)">
+      {[0, 120, 240].map((r) => (
+        <path key={r} d={PETAL} transform={`rotate(${r} 50 50)`} />
+      ))}
+    </g>
+    <circle cx="50" cy="49" r="2.6" fill="#5e0a20" opacity=".2" />
   </svg>
 );

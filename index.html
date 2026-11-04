@@ -165,6 +165,31 @@ h1{margin:0; line-height:.9}
 .secret p{margin:0; font-family:var(--font-script); font-size:30px; line-height:1.25; color:var(--crimson)}
 .secret small{display:block; margin-top:10px; font-size:10px; letter-spacing:.3em; text-transform:uppercase; color:var(--ink-soft)}
 
+/* ---------- el reel renderizado ---------- */
+.reel{padding-block:8px 6px}
+.reel-grid{display:grid; gap:24px; align-items:center}
+.reel h2{
+  margin:0; font-family:var(--font-display); font-size:clamp(26px,8.5vw,46px);
+  line-height:1.02; color:var(--ink); text-wrap:balance;
+}
+.reel h2 em{font-style:normal; color:var(--candy)}
+.phone{
+  margin:0; justify-self:center; width:min(78vw, 290px);
+  border:9px solid var(--plum); border-radius:30px; overflow:hidden;
+  background:var(--plum);
+  box-shadow:0 26px 60px rgba(141,15,49,.32), inset 0 0 0 1px rgba(255,255,255,.18);
+}
+.phone video{display:block; width:100%; aspect-ratio:9/16; object-fit:cover}
+.phone figcaption{
+  padding:9px 10px; text-align:center; font-size:9px; letter-spacing:.28em;
+  text-transform:uppercase; color:#ff96b0; background:var(--plum);
+}
+@media (min-width:760px){
+  .reel{padding-block:20px 10px}
+  .reel-grid{grid-template-columns:1fr auto; gap:48px}
+  .phone{width:300px}
+}
+
 /* ---------- carta nocturna ---------- */
 .night{
   position:relative; margin-top:40px; color:#ffdfe8;
@@ -268,12 +293,17 @@ h1{margin:0; line-height:.9}
         <use href="#petal" transform="rotate(180 50 50)"/><use href="#petal" transform="rotate(252 50 50)"/>
         <use href="#petal" transform="rotate(324 50 50)"/>
       </g>
-      <g fill="currentColor" transform="translate(50 50) scale(.42) translate(-50 -50)">
+      <g fill="currentColor" transform="translate(50 50) rotate(22) scale(.44) translate(-50 -50)">
         <use href="#petal"/><use href="#petal" transform="rotate(90 50 50)"/>
         <use href="#petal" transform="rotate(180 50 50)"/><use href="#petal" transform="rotate(270 50 50)"/>
       </g>
-      <circle cx="50" cy="50" r="7" fill="#5e0a20" opacity=".28"/>
-      <circle cx="47" cy="47" r="3.4" fill="#fff" opacity=".35"/>
+      <g fill="#5e0a20" opacity=".10" transform="translate(50 50) rotate(50) scale(.26) translate(-50 -50)">
+        <use href="#petal"/><use href="#petal" transform="rotate(120 50 50)"/><use href="#petal" transform="rotate(240 50 50)"/>
+      </g>
+      <g fill="currentColor" transform="translate(50 50) rotate(-14) scale(.2) translate(-50 -50)">
+        <use href="#petal"/><use href="#petal" transform="rotate(120 50 50)"/><use href="#petal" transform="rotate(240 50 50)"/>
+      </g>
+      <circle cx="50" cy="49" r="2.6" fill="#5e0a20" opacity=".2"/>
     </symbol>
     <symbol id="heart3d" viewBox="0 0 100 92">
       <ellipse cx="50" cy="88" rx="30" ry="7" fill="url(#gShadow)"/>
@@ -293,6 +323,7 @@ h1{margin:0; line-height:.9}
     </a>
     <nav class="nav" aria-label="Secciones">
       <a href="#inicio">Inicio</a>
+      <a href="#animacion">El reel</a>
       <a href="#carta">La carta</a>
       <a href="#promesas">Promesas</a>
       <a href="#siempre">Siempre</a>
@@ -339,6 +370,20 @@ h1{margin:0; line-height:.9}
           <g class="float"><use href="#heart3d" x="60" y="60" width="30" height="28"/></g>
         </svg>
       </div>
+    </div>
+  </section>
+
+  <section class="reel" id="animacion">
+    <div class="wrap reel-grid">
+      <div>
+        <p class="eyebrow">Renderizado con Remotion</p>
+        <h2>Seis segundos<br>que lo dicen <em>todo</em></h2>
+        <p class="lede">La misma tormenta de corazones, pero cuadro a cuadro: 180 frames a 30 por segundo, para que te la puedas llevar en el teléfono.</p>
+      </div>
+      <figure class="phone">
+        <video src="assets/isa-te-amo.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Animación: corazones subiendo alrededor del texto Isa te amo"></video>
+        <figcaption>Isa te amo · att Philipao</figcaption>
+      </figure>
     </div>
   </section>
 
